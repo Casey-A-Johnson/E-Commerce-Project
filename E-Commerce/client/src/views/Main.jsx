@@ -1,7 +1,15 @@
 import React from 'react';
+import Data from '../components/Data';
+import ProductList from '../components/ProductList';
 
-const Main = () => {
-  return <div>Main</div>;
+const Main = (props) => {
+  return (
+    <div>
+      <div>
+        <ProductList />
+      </div>
+    </div>
+  );
 };
 
 export default Main;
