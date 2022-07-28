@@ -1,19 +1,22 @@
 import express from 'express';
 import Data from './Data.js';
+import mongoose from 'mongoose';
+import seedRouter from './routes/seedRoutes.js';
+import productRouter from './routes/product.routes.js';
+
+mongoose
+  .connect('mongodb://localhost/E-Commerce_db', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log('Established a connection to the database'))
+  .catch((err) =>
+    console.log('Something went wrong when connecting to the database', err)
+  );
+
 const app = express();
-
-app.get('/api/products', (req, res) => {
-  res.send(Data.products);
-});
-
-app.get('/api/products/slug/:slug', (req, res) => {
-  const product = Data.products.find((x) => x.slug === req.params.slug);
-  if (product) {
-    res.send(product);
-  } else {
-    res.status(404).send({ message: 'Product Not Found' });
-  }
-});
+app.use('/api/seed', seedRouter);
+app.use('/api/products', productRouter);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Listening on http://localhost:${port}`));

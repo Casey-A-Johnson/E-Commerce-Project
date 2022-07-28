@@ -2,6 +2,8 @@ import Main from './views/Main';
 import Layout from './views/Layout';
 import { Routes, Route } from 'react-router-dom';
 import ProductView from './views/ProductView';
+import CartView from './views/CartView';
+import SignIn from './views/SignIn';
 
 function App() {
   return (
@@ -20,6 +22,22 @@ function App() {
           element={
             <Layout>
               <ProductView />
+            </Layout>
+          }
+        />
+        <Route
+          path="/api/cart"
+          element={
+            <Layout>
+              <CartView />
+            </Layout>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Layout>
+              <SignIn />
             </Layout>
           }
         />

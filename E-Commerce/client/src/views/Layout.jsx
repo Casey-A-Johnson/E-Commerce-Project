@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Store } from '../Store';
 
 const Layout = (props) => {
+  const { state } = useContext(Store);
+  const { cart } = state;
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -48,8 +52,17 @@ const Layout = (props) => {
               role="search"
               style={{ gap: '10px', alignItems: 'center' }}
             >
-              <Link style={{ marginRight: '30px' }} className="nav-link" to="">
+              <Link
+                style={{ marginRight: '30px' }}
+                className="nav-link"
+                to="/api/cart"
+              >
                 Cart
+                {cart.cartItems.length > 0 && (
+                  <span className="badge text-bg-danger">
+                    {cart.cartItems.length}
+                  </span>
+                )}
               </Link>
               <input
                 className="form-control me-2"
@@ -72,7 +85,7 @@ const Layout = (props) => {
           marginTop: '10px',
         }}
       >
-        <p> All rights reserved</p>
+        {/* <p> All rights reserved</p> */}
       </div>
     </div>
   );

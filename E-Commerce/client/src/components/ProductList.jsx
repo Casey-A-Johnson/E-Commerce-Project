@@ -2,11 +2,12 @@ import React from 'react';
 // import Data from '../components/Data';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useReducer } from 'react';
 import logger from 'use-reducer-logger';
 import Rating from './Rating';
+import { Store } from '../Store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,6 +29,25 @@ const ProductList = () => {
     loading: true,
     error: '',
   });
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const {
+    cart: { cartItems },
+  } = state;
+
+  const addToCartHandler = async (item) => {
+    const existitem = cartItems.find((x) => x._id === item._id);
+    const quantity = existitem ? existitem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Sorry, Product is out of stock');
+      return;
+    }
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...item, quantity },
+    });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,7 +99,16 @@ const ProductList = () => {
                   <p className="card-text">
                     <strong>${product.price}</strong>
                   </p>
-                  <button className="btn btn-primary">Add to cart</button>
+                  {product.countInStock === 0 ? (
+                    <button disabled>Out of Stock</button>
+                  ) : (
+                    <button
+                      onClick={() => addToCartHandler(product)}
+                      className="btn btn-primary"
+                    >
+                      Add to cart
+                    </button>
+                  )}
                 </div>
               </div>
             ))
