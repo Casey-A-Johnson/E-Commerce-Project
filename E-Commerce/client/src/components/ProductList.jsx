@@ -104,7 +104,7 @@ const ProductList = () => {
                   ) : (
                     <button
                       onClick={() => addToCartHandler(product)}
-                      className="btn btn-primary"
+                      className="btn btn-outline-success"
                     >
                       Add to cart
                     </button>

@@ -50,8 +50,8 @@ const CartView = () => {
                   className="container text-center"
                   style={{ marginTop: '20px' }}
                 >
-                  <div class="row align-items-center">
-                    <div class="col">
+                  <div className="row align-items-center">
+                    <div className="col">
                       <img
                         style={{ width: '100px', height: '100px' }}
                         src={item.image}
@@ -59,7 +59,7 @@ const CartView = () => {
                       />
                       <Link to={`/api/product/${item.slug}`}>{item.name}</Link>
                     </div>
-                    <div class="col">
+                    <div className="col">
                       <button
                         onClick={() =>
                           updateCartHandler(item, item.quantity - 1)
@@ -78,8 +78,8 @@ const CartView = () => {
                         <i className="fas fa-plus-circle"></i>
                       </button>
                     </div>
-                    <div class="col">${item.price}</div>
-                    <div class="col">
+                    <div className="col">${item.price}</div>
+                    <div className="col">
                       <button onClick={() => removeItemHandler(item)}>
                         <i className="fas fa-trash"></i>
                       </button>
