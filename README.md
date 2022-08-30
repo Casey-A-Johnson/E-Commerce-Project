@@ -33,13 +33,13 @@ List the ready features here:
 Setup
 
 cd into client folder and run this command in ther terminal:
-
-  npm start
+  npm install react
+  npm run start
   
 This will open up the web browser with react.
 
 open another terminal and cd into server folder and run the command:
-
+  npm install express mongoose
   nodemon server.js or just node server.js if you do not have nodemon installed.
   
 This will start the server side of the application. Refresh the web broswer and you will see the application up and running.
